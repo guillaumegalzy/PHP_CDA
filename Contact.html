@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" shrink-to-fit=no>
+  <title>Jarditou</title>
+
+    <!-- Déclaration des feuilles CSS -->
+    <!-- Spécial pour BOOSTRAP -->
+        <!-- Lien vers la feuille de style CSS de Boostrap. A positionner obligatoirement AVANT les autres CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+        <!-- Lien vers une feuille CSS spécifique pour des modifications d'éléments particuliers de BOOSTRAP CSS -->
+        <link rel="stylesheet" href="css/Styleboostrap.css">
+
+        <!-- Modification de l'icône de la page dans le navigateur web -->
+        <link rel="shortcut icon" type="image/x-icon" href="img/flower.png"/>
+</head>
+
+<body>
+    <!-- Création du conteneur principal -->
+    <div class="container-fluid">
+
+        <!-- HEADER -->
+        <header class="row">
+            <img class="img-fluid col-4 p-0" id="logo" src="img/jarditou_logo.jpg" alt="logo Jarditou" title="logo Jarditou">
+            <p class="col-8 h m-auto text-center font-weight-bold" id="jardin" >Tout le jardin</p>
+        </header>
+
+        <!-- NAVIGATION -->
+            <nav 
+                class=" navbar 
+                        navbar-expand-sm 
+                        navbar-dark
+                        row 
+                        p-0">
+            
+                    <!-- "navbar" permet d'appeler l'utilisation de la classe navbar du CSS Boostrap-->    
+                    <!-- "navbar-expand" permet de définir la taille minimale à partir de laquelle le menu s'affiche en entier ou sous un bouton unique.
+                    Peut prendre par défault 5 valeurs prédéfinie : 
+                        -xs : <576 px (extra small) |-sm : >=76px (small devices) |-md : >=768 px (medium devices) | -lg : >=992px (large devices) | -xl : >=1200px (extra large devices)-->
+                    <!-- "navbar-dark | navbar-light" permet de choisir la couleur de texte adaptée à un background de couleur plutôt sombre | clair -->
+                    <!-- L'attribut "style" permet enfin avec l'utilitaire "background-color" de définir librement la couleur du background de la navbar-->
+                    
+                    <!-- Ajout du bouton pour activer/désactiver la réduction du menu nav -->
+                    <button 
+                        id="bouton_toggle"
+                        class="navbar-toggler" 
+                        type="button"
+                        data-toggle="collapse" 
+                        data-target="#collapsibleNavbar ,#toggle-icon">
+                    
+                        <!--"data-toggle" peut prendre plusieurs valeurs dont :
+                            collapse (choix actuels pour activer l'utilisation d'un bouton pour réduire le menu)
+                            dropdown
+                            modal
+                            tab
+                            pill
+                            button(s) -->
+                            <!-- "data-target" doit contenir la valeur (id) du champ à controller via le bouton. Vérifier que l'objet contrôlé dispose a bien une variable 'collapse' déclarée -->
+                        
+                        <!-- Sélection de l'icône qui sera utilisé pour le Toggler-->
+                        <span class="navbar-toggler-icon"></span>
+                    </button>   
+
+                <!-- Ajout du branding sur le nav -->
+                    <a class="navbar-brand m-0 pl-2 pr-3" id="brand" href="#">
+                        <img src="img/flower.png" width="30" height="30" class="d-inline-block align-center" alt="flower" loading="lazy">
+                        Jarditou.com
+                    </a>
+
+                <!-- Création des liens de menus -->
+                    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                        <ul class="navbar-nav" id="navigation">
+                            <li class="nav-item "> <!-- classe active utilisée pour encadré autour de la page en cours -->
+                                <a class="nav-link px-3" href="Accueil.html">Accueil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link px-3" href="Tableau.html">Tableau</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link px-3" href="Contact.html">Formulaire</a>
+                            </li>
+                        </ul>
+                    </div>       
+
+                <!-- Ajout de la barre de recherche sur le nav -->
+                    <form class="form-inline" id="search_box">
+                        <!-- Barre de recherche -->
+                        <input id="search_bar" class="form-control mr-sm-2 mr-auto" type="search" placeholder="Votre promotion" aria-label="Search">
+
+                    <!-- Bouton de recherche -->
+                        <button id="search_btn" href="#"> 
+                            <svg class="bi bi-search" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                                <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                            </svg>
+                        
+                        </button>
+                    </form>
+            </nav>
+
+        <!-- BANDEAU PROMOTIONNEL -->
+        <div class="row">
+            <img class="p-0 col-12" src="img/promotion.jpg" alt="Bandeau promotionnel" title="Bandeau promotionnel">
+        </div>     
+        
+        <!-- PAGE -->
+        <p class="row m-auto">*Ces zones sont obligatoires.</p>
+            <!-- Formulaire -->
+            <form action="./php/EX6.1.php" method="POST" id="formulaireJarditou">
+
+                <!-- VOS COORDONNEES -->
+                <div class="backgroundFieldset mx-0 mt-3 p-1 px-0">
+                    <label class="row ml-auto font-weight-bold">Vos coordonnées</label>
+                        <div class="row mt-2">
+                            <!-- Nom -->
+                            <div class="col">
+                                <label for="nom"> Votre nom* :</label>
+                                <input type="text" class="form-control" id="nom" name="Nom" placeholder="Votre nom">
+                            </div>
+                            <!-- Prénom -->
+                            <div class="col">
+                                <label for="prénom">Votre prénom* : </label>
+                                <input type="text" class="form-control" id="prenom" name="Prénom" placeholder="Votre prénom"> 
+                            </div>
+                        </div>
+
+                        <!-- Sexe -->
+                        <label class="row ml-auto mt-2" for="sexe">Votre sexe* :</label>
+
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="feminin" name="Sexe" value="Féminin" class="custom-control-input">
+                            <label class="custom-control-label" for="feminin">Féminin</label>
+                          </div>
+                          <div class="custom-control custom-radio">
+                            <input type="radio" id="masculin" name="Sexe" value="Masculin" class="custom-control-input">
+                            <label class="custom-control-label" for="masculin">Masculin</label>
+                          </div>
+
+                        <!-- Date naissance -->
+                        <div class="row">
+                            <div class="form-group col-auto">
+                                <label for="datenaissance">Date naissance* : </label>
+                                <input type="text" id="datenaissance" name="Date de naissance" class="form-control" placeholder="JJ/MM/AAAA"> 
+                            </div>
+                        </div>
+            
+                        <!-- Adresse postale-->
+                        <div class="row align-items-end">
+                            <!-- CP -->
+                            <div class="form-group col-auto">
+                                <label for="codepostal">Code postal*: </label>
+                                <input type="text" class="form-control" id="codepostal" name="Code postal"><!-- Limitation de la taille du CP à 5 caractères -->
+                            </div>
+                            
+                            <!-- Ville -->
+                            <div class="form-group col-auto">
+                                <label for="ville">Ville : </label>
+                                <input type="text" class="form-control" id="ville" name="Ville">
+                            </div>
+
+                            <!-- Adresse -->
+                            <div class="form-group col-auto">   
+                                <label for="adresse">Adresse : </label>
+                                <input type="text" class="form-control" id="adresse" name="Adresse">
+                            </div>  
+                        </div>
+
+                        <!-- Mail -->
+                        <div class="row">
+                            <div class="form-group col-auto">   
+                                <label for="email">Email* : </label>
+                                <input type="text" class="form-control" id="email" name="E-mail" placeholder="dave.loper@afpa.fr">
+                            </div>
+                        </div>
+                </div>        
+                               
+                <!-- VOS DEMANDES -->
+
+                    <div class="backgroundFieldset mx-0 mt-3 p-1 px-0">                            
+                        <label class="font-weight-bold">Vos demandes</label>
+                    
+                        <!-- Liste déroulante de choix -->
+                        <label class="row col-auto" for="sujet">Sujet* : </label>
+                        <select class="custom-select col-auto" name="Sujet de la demande" id="sujet">
+                            <option selected>Sélectionner le type de demande</option>
+                            <option value="Mes commandes">Mes commandes</option>
+                            <option value="Question sur un produit">Question sur un produit</option>
+                            <option value="Réclamation">Réclamation</option>
+                            <option value="Autres">Autres</option>
+                        </select>
+
+                        <!-- Text area -->
+                        <div class="form-group">
+                            <label for="question">Votre question* : </label>
+                            <textarea class="form-control" id="question" name="Question" rows="3"></textarea> <!-- Zone de texte basique -->
+                        </div>
+
+                        <!--Checkbox -->
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1" name="Acceptation du traitement informatique">
+                            <label class="custom-control-label" for="customCheck1">J'accepte le traitement informatique de ce formulaire</label>
+                        </div> 
+                    </div>
+
+                <!--Bouton envoyer/annuler -->
+                    <div class ="row mt-4 col-auto justify-content-around">                     
+                        <button type="submit" class="btn btn-primary btn-lg mx-2">Envoyer</button><!-- Bouton pour envoyer le formulaire au serveur -->
+                        <button type="reset" class="btn btn-danger btn-lg mx-2">Annuler</button><!-- Bouton pour envoyer le formulaire au serveur -->
+                    </div>
+            </form>
+
+        <!-- PIED DE PAGE (FOOTER) -->
+        <footer 
+            class=" row
+                    navbar 
+                    navbar-expand-sm 
+                    bg-secondary
+                    px-0
+                    mt-2">
+
+            <ul class="navbar-nav " id="footer">
+                <a class="nav-link text-white px-3 py-0" href="#">Mentions légales</a>
+                <a class="nav-link text-white px-3 py-0" href="#">Horaires</a>
+                <a class="nav-link text-white px-3 py-0" href="#">Plan du site</a>
+            </ul>
+        </footer>
+
+</body>
+</html>

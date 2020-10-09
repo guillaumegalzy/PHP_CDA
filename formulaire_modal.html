@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">      <title>Formulaire Javascript - Chap 16</title>
+      <style>
+            .required{
+                  color:red;
+                  font-weight: bold;
+            }
+      </style>
+</head>
+<body class="container ml-auto"> 
+      <div class="row text-center pb-3">
+            <div class="row">
+                  <div class="col-4">
+                        <a href="index.html" class="row">
+                              <svg viewBox="0 0 20 20" class="bi bi-arrow-return-left col-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>
+                              </svg>
+                        </a>
+                  </div>
+                  <h1 class="col-8">Formulaire de saisie</h1>
+            </div>
+            <p class="font-weight-bold col-12 required">* Ces zones sont obligatoires pour envoyer le formulaire.</p>
+      </div>
+      <div class="col-12 form-group mx-auto">
+                        
+            <form action="php/EX8.2.php" method="POST" class="needs-validation" novalidate>
+                  <div class="form-group row pb-3">
+                        <label for="societe" class="col-3 col-form-label required">Société*</label>
+                        <div class="col-9" style="height:50px">
+                              <input type="text" class="form-control" name="societe" id="societeInput" placeholder="Société" required>
+                              <div class="invalid-feedback"></div>
+                        </div>
+                  </div>
+
+                  <div class="form-group row pb-3">
+                        <label for="contactPersonne" class="col-3 col-form-label required">Personne à contacter*</label>
+                        <div class="col-9" style="height:50px">
+                              <input type="text" class="form-control" name="contactPersonne" id="contactPersonneInput" placeholder="Personne à contacter" required>
+                              <div class="invalid-feedback"></div>
+                        </div>
+                  </div>
+
+                  <div class="form-group row pb-3">
+                        <label for="adresseEntreprise" class="col-3 col-form-label mb-4">Adresse de l'entreprise</label>
+                        <div class="col-9" style="height:50px">
+                              <textarea class="form-control" id="adresseEntrepriseInput" name="adresseEntreprise" rows="2" placeholder="Adresse de l'entreprise"></textarea>
+                              <div class="invalid-feedback"></div>
+                        </div>
+                  </div>
+
+                  <div class="form-group row pb-3">
+                        <label for="codePostal" class="col-3 col-form-label required">Code Postal*</label>
+                        <div class="col-9" style="height:50px">
+                              <input type="text" class="form-control" id="codePostalInput" name="codePostal" maxlength="5" placeholder="80000" required>
+                              <div class="invalid-feedback"></div>
+                        </div>
+                  </div>
+
+                  <div class="form-group row pb-3">
+                        <label for="ville" class="col-3 col-form-label required">Ville*</label>
+                        <div class="col-9" style="height:50px">
+                              <input type="text" class="form-control" id="villeInput" name="ville" placeholder="Ville" required>
+                              <div class="invalid-feedback"></div>
+                        </div>
+                  </div>
+
+                  <div class="form-group row pb-3">
+                        <label for="email" class="col-3 col-form-label required">E-mail*</label>
+                        <div class="col-9" style="height:50px">
+                              <input type="email" class="form-control" id="emailInput" name="email" placeholder="E-mail@mail.fr" required>
+                              <div class="invalid-feedback"></div>
+                        </div>
+                  </div>
+
+                  <div class="form-group row pb-3">
+                        <label for="telephone" class="col-3 col-form-label">Téléphone</label>
+                        <div class="col-9">
+                              <input type="text" class="form-control" id="telephoneInput" name="telephone" maxlength="10" placeholder="">
+                              <div class="invalid-feedback"></div>
+                        </div>
+                  </div>
+
+                  <div class="form-group row pb-3">
+                        <label for="environnement" class="col-3 col-form-label">Sélectionne l'environnement du projet</label>
+                        <div class="col-9">
+                              <select class="custom-select" name="environnement" id="selectEnvironnementInput">
+                                    <option selected>Choisissez</option>
+                                    <option value="Access">Access</option>
+                                    <option value="Java">Java</option>
+                                    <option value="Delphi">Delphi</option>
+                                    <option value="Windev">Windev</option>
+                                    <option value="Visual Basic">Visual Basic</option>
+                                    <option value="Power Builder">Power Builder</option>
+                                    <option value="Internet">Internet</option>
+                                    <option value="Intranet">Intranet</option>
+                                    <option value="Windows NT">Windows NT</option>
+                                    <option value="Unix">Unix</option>
+                                    <option value="SQL Serveur">SQL Serveur</option>
+                                    <option value="Oracle">Oracle</option>
+                                    <option value="Autres">Autres...</option>
+                              </select>
+                              <textarea class="d-none" id="textEnvironnement" name="environnementAutres" rows="2" placeholder="Saisissez manuellement votre environnement"></textarea>
+                        </div>
+
+                  </div>
+
+                  <div class="row col-12 justify-content-around">
+                        <button type="submit" class="btn bg-primary btn-lg mx-2" id="submitBtn">Envoyer</button>
+                        <button type="reset" class="btn bg-warning btn-lg mx-2">Annuler</button>
+                  </div>
+            </form>
+
+
+      </div>
+
+      </body>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+
+</html>

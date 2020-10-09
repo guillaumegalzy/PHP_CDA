@@ -1,0 +1,129 @@
+/* CSS Modification Boostrap */
+/*  */
+/*  */
+
+/* HEADER */
+/*  */
+
+      /* Mise en forme de "Tout le jardin" */
+            #jardin { 
+                  color: brown;
+            }
+
+/* MENU NAVIGATION */
+/*  */
+      /* Modification de la couleur de la navbar */ 
+            nav.navbar{
+                  background-color: #645666;
+            }
+            
+      /* Mise en couleur du lien de menu de la page en cours de visualisation au sein du menu nav */
+            .active { 
+                  background-color: #f85698;
+            }
+
+      /* Modification de la couleur du texte de la navbar */ 
+            #navigation .nav-link{
+                  color: white;
+            }
+
+      /*  Modification de la couleur du brand de la navbar */
+            #brand{
+                  color: white;
+            }
+            
+      /* Modification de la couleur du Toggle Button via l'application d'un filtre*/
+            .navbar-toggler-icon {
+                  filter: invert(60%) sepia(31%) saturate(6158%) hue-rotate(303deg) brightness(97%) contrast(101%);
+            }
+
+      /* modification du bouton Toggler qui apparait en responsive */
+            .navbar-toggler{
+                  border: none; /* Suppression de la bordure */
+                  padding: 0.2rem 0.5rem 0.2rem 0.5rem; /* modification des marges */
+            }
+            
+      /* Modification du bouton de recherche */
+            #search_btn {
+                  background-color:#f85698;
+                  border:2px solid;
+                  border-color: #fff;
+                  border-radius: 50%;
+                  margin: 0px 10px 0px 10px;
+            }
+
+      /* Animation de la barre de recherche pour écran <768 px */
+            @media screen and (max-width:768px){
+                  #search_bar{
+                        display: none;
+                  }
+            
+                  #search_box:hover > #search_bar{ /* modification des attributs de "search_bar" quand curseur survole la "search_box" */
+                        display: inline-block; /* rend de nouveau possible l'affichage de la barre de recherche */
+                        flex-wrap: nowrap; /* évite le retour à la ligne si barrre recherche trop grande */
+                        animation-name: barre_recherche; /* appel de l'animation nommée "barre_recherche" */
+                        animation-direction: reverse ; /* choisit de la lecture de l'animation en marche arrière */
+                        animation-timing-function: ease; /* choisit le mode de transition douce "ease" entre les états de l'animation */
+                        animation-duration: 0.8s; /* temps de l'animation */
+                        animation-fill-mode: forwards; /*choisit l'état qui reste actif en fin d'animation, ici, le dernier état d'où "forwards" */
+                        font-size: 0.7rem; /* Réduction de la taille du texte (placeholder) pour petits écrans */
+                  }
+
+                  @keyframes barre_recherche{ /* animation permettant de modifier la taille de la search_box */
+                        0% {
+                              width: 150px; 
+                        }
+                        100% {
+                              width: 0px;
+                        }
+                  }
+                  
+                  #search_btn:active{ /* modification du bouton de recherche au survol quand curseur survole la "search_box" */
+                        transform: scale(1.1);
+                  }
+                  #search_btn:active> svg{ /* modification du svg du bouton de recherche au survol quand curseur survole la "search_box" */
+                        transform: scale(1.2) rotate(-20deg);
+                  }
+            }
+
+/* TABLEAU */
+/*  */
+      .table td{
+            vertical-align: middle;
+      }
+      
+/* FORMULAIRE */
+/*  */
+      .backgroundFieldset{
+            background-color: #64566636 ;
+      }
+
+
+/*  */
+/* CSS Responsive */
+/*  */
+/*  */
+
+/* Gestion des tailles de texte selon taille écran */
+@media all {
+	html {
+		font-size: 1rem;
+	}
+
+	#jardin{
+		font-size: 1rem;
+	}
+
+	* h1 { /* modification de la taille de police des titres h1 pour tous les appareils, en cas de rétrécissement */
+		font-size: 1.5rem; 
+	}
+ 
+	* h2 { /* modification de la taille de police des titres h2 pour tous les appareils, en cas de rétrécissement */
+		font-size: 1.1rem; 
+	}
+
+	* p { /* modification de la taille de police des paragraphes pour tous les appareils, en cas de rétrécissement */
+		font-size: 0.8rem;
+      }
+}
+
