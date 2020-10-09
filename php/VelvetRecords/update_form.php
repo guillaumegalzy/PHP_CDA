@@ -3,6 +3,35 @@
 
     require_once 'connexion.php';
 
+    //Gestion affichage des erreurs détectés lors de la validation côté serveur
+        if(isset($_SESSION['errorsForm'])){
+            $errorTitle = $_SESSION['errorsForm']['Title'];
+            $errorYear = $_SESSION['errorsForm']['Year'];
+            $errorGenre = $_SESSION['errorsForm']['Genre'];
+            $errorLabel = $_SESSION['errorsForm']['Label'];
+            $errorPrice = $_SESSION['errorsForm']['Price'];
+            $errorArtist = $_SESSION['errorsForm']['Artist'];
+            unset($_SESSION['errorsForm']); // Supprime les erreurs pour éviter l'apparition de nouveau des messages si retour sur le formulaire via un autre chemin
+        } else{
+            $errorTitle = "";
+            $errorYear = "";
+            $errorGenre = "";
+            $errorLabel = "";
+            $errorPrice = "";
+            $errorArtist = "";
+        }
+
+        if(isset($_SESSION['infos'])){
+            $_GET = $_SESSION['infos'];
+            if(empty($_SESSION['infos']['Picture']['name'])){ // Si pas d'imager chargée lors de la modification
+                $_GET['Picture'] = $_SESSION['infos']['pictureUnchanged'];
+            } else {
+                $_GET['Picture'] = "img/".$_SESSION['infos']['Picture']['name'];
+            }
+            $_GET['artist_id'] = $_SESSION['infos']['Artist'];
+            unset($_SESSION['infos']); // Supprime les infos pour éviter l'apparition de nouveau des messages si retour sur le formulaire via un autre chemin
+        }
+
     // Requête pour la page en cours.
     $SqlArtist = "SELECT DISTINCT artist_id, artist_name FROM artist ORDER BY 2 ASC"; // écriture requête de tous les artistes présents dans la BDD
     
@@ -12,8 +41,6 @@
     $tableauArtist = $requeteArtist->fetchAll(PDO::FETCH_OBJ);
     $requeteArtist->closeCursor();
 
-    /* var_dump($_GET); 
-    var_dump($tableauArtist); */
 ?>
 <body>
     <div class="container">
@@ -23,7 +50,7 @@
         <form action="update_script.php" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
             <div class="form-group">
                 <label for="Title">Title</label>
-                <input type="text" placeholder="Enter title" class="form-control" name="Title" value="<?php echo $_GET['Title']?>" required>
+                <input type="text" placeholder="Enter title" class="form-control <?php echo $errorTitle?>" name="Title" value="<?php echo $_GET['Title']?>" required>
                 <div class="invalid-feedback">
                     Please enter a title.
                 </div>
@@ -31,10 +58,10 @@
 
             <div class="form-group">    
             <label for="Artist">Artist</label>
-                <select placeholder="Enter year" class="form-control" name="Artist" required>
+                <select placeholder="Enter year" class="form-control <?php echo $errorArtist?>" name="Artist" required>
                 <option value="">Select an artist from this list</option>
                     <?php forEach($tableauArtist as $artist)
-                        if ($artist->artist_name == $_GET['Artist']){
+                        if ($artist->artist_id == $_GET['artist_id']){
                             echo '<option selected="selected" value="'.$artist->artist_id.'">'.$artist->artist_name.'</option>';
                         } else {
                             echo  '<option value="'.$artist->artist_id.'">'.$artist->artist_name.'</option>';
@@ -48,7 +75,7 @@
 
             <div class="form-group">    
                 <label for="Year">Year</label>
-                <input type="text" placeholder="Enter year" class="form-control" name="Year" maxlength="4" value="<?php echo $_GET['Year']?>" required>
+                <input type="text" placeholder="Enter year" class="form-control <?php echo $errorYear?>" name="Year" maxlength="4" value="<?php echo $_GET['Year']?>" required>
                 <div class="invalid-feedback">
                     Please enter a year.
                 </div>
@@ -56,7 +83,7 @@
 
             <div class="form-group">
                 <label for="Genre">Genre</label>
-                <input type="text" placeholder="Enter genre (Rock,Pop,Prog...)" class="form-control" name="Genre" value="<?php echo $_GET['Genre']?>" required>
+                <input type="text" placeholder="Enter genre (Rock,Pop,Prog...)" class="form-control <?php echo $errorGenre?>" name="Genre" value="<?php echo $_GET['Genre']?>" required>
                 <div class="invalid-feedback">
                     Please enter a genre.
                 </div>
@@ -64,7 +91,7 @@
 
             <div class="form-group">
                 <label for="Label">Label</label>
-                <input type="text" placeholder="Enter label (EMI, Warner, Polygram, Univers sale ...)" class="form-control" name="Label" value="<?php echo $_GET['Label']?>" required>
+                <input type="text" placeholder="Enter label (EMI, Warner, Polygram, Univers sale ...)" class="form-control <?php echo $errorLabel?>" name="Label" value="<?php echo $_GET['Label']?>" required>
                 <div class="invalid-feedback">
                     Please enter a label.
                 </div>
@@ -72,9 +99,9 @@
 
             <div class="form-group">
                 <label for="Price">Price</label>
-                <input type="text" placeholder="Price" class="form-control" name="Price" value="<?php echo $_GET['Price']?>" required>
+                <input type="text" placeholder="Price" class="form-control <?php echo $errorPrice?>" name="Price" value="<?php echo $_GET['Price']?>" required>
                 <div class="invalid-feedback">
-                    Please enter a Price.
+                    Please enter a price => format {6,2}.
                 </div>
             </div>
 
@@ -103,6 +130,7 @@
             </div>
 
             <input hidden name="id" value="<?php echo $_GET['id']?>">
+            <input hidden name="pictureUnchanged" value="<?php echo $_GET['Picture']?>">
 
                 <button type="submit" class="btn btn-primary">Modifier</button>
                 <button type="reset" class="btn btn-secondary" id="BtnReset" onclick="window.location.href = 'index.php'">Retour</button>

@@ -11,6 +11,7 @@
     $requeteDiscDetails->execute(array($_REQUEST['id'])); // exécute requête avec l'id en paramètre
     $tableauDiscDetails = $requeteDiscDetails->fetch(PDO::FETCH_NAMED);
     $requeteDiscDetails->closeCursor();    
+
 ?>
 
 <body>
@@ -55,6 +56,7 @@
             </div>
 
             <input hidden name="id" value="<?php echo $tableauDiscDetails['disc_id']?>">
+            <input hidden name="artist_id" value="<?php echo $tableauDiscDetails['artist_id'][0]?>">
                 
                 <button type="submit" class="btn btn-primary">Modifier</button>
                 <button type="button" class="btn btn-danger" onclick="window.location.href = 'delete_script.php?id=<?php echo $_REQUEST['id'] ?>'">Supprimer</button>

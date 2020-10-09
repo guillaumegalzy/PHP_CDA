@@ -1,3 +1,8 @@
+<?php
+    //Ouverture de la session pour stockage
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
