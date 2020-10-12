@@ -12,6 +12,7 @@
         //Connexion à la BDD
             require_once 'connexion.php';
         
+            var_dump($disc_price);
         //Ajout du nouveau vynile 
             //Préparation
                 $sqlUpdateWithoutPicture = "UPDATE `disc` SET disc_title = :disc_title, disc_year = :disc_year, disc_label = :disc_label, disc_genre = :disc_genre, disc_price = :disc_price, artist_id = :artist_id WHERE disc_id = $disc_id";  
@@ -22,7 +23,7 @@
                 $RequeteUpdate->bindValue(":disc_year", $disc_year, PDO::PARAM_INT);
                 $RequeteUpdate->bindValue(":disc_label", $disc_label, PDO::PARAM_STR);
                 $RequeteUpdate->bindValue(":disc_genre", $disc_genre, PDO::PARAM_STR);
-                $RequeteUpdate->bindValue(":disc_price", $disc_price, PDO::PARAM_INT);
+                $RequeteUpdate->bindValue(":disc_price", $disc_price);
                 $RequeteUpdate->bindValue(":artist_id", $artist_id, PDO::PARAM_INT);
             
             //Execution

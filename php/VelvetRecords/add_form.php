@@ -3,6 +3,17 @@
 
     require_once 'connexion.php';
 
+    require_once 'errors_verif.php';
+
+    if (empty($_GET)){
+        $_GET['Title'] ="";
+        $_GET['Artist'] ="";
+        $_GET['Year'] ="";
+        $_GET['Genre'] ="";
+        $_GET['Label'] ="";
+        $_GET['Price'] ="";
+        $_GET['Picture'] ="";
+    }
     // Requête pour la page en cours.
     $SqlArtist = "SELECT DISTINCT artist_id, artist_name FROM artist ORDER BY 2 ASC"; // écriture requête de tous les artistes présents dans la BDD
     
@@ -20,7 +31,7 @@
         <form action="add_script.php" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
             <div class="form-group">
                 <label for="Title">Title</label>
-                <input type="text" placeholder="Enter title" class="form-control" name="Title" required>
+                <input type="text" placeholder="Enter title" class="form-control" name="Title" value="<?php echo $_GET['Title']?>" required>
                 <div class="invalid-feedback">
                     Please enter a title.
                 </div>
@@ -28,10 +39,14 @@
 
             <div class="form-group">    
                 <label for="Artist">Artist</label>
-                <select placeholder="Enter year" class="form-control" name="Artist" required>
+                <select placeholder="Enter year" class="form-control <?php echo $errorArtist?>" name="Artist" required>
                     <option value="">Select an artist from this list</option>
                     <?php forEach($tableauArtist as $artist)
-                        echo '<option value="'.$artist->artist_id.'">'.$artist->artist_name.'</option>';
+                        if ($artist->artist_id == $_GET['artist_id']){
+                            echo '<option selected="selected" value="'.$artist->artist_id.'">'.$artist->artist_name.'</option>';
+                        } else {
+                            echo  '<option value="'.$artist->artist_id.'">'.$artist->artist_name.'</option>';
+                        }
                     ?>
                 </select>
                 <div class="invalid-feedback">
@@ -41,7 +56,7 @@
 
             <div class="form-group">    
                 <label for="Year">Year</label>
-                <input type="text" placeholder="Enter year" class="form-control" maxlength="4" name="Year" required>
+                <input type="text" placeholder="Enter year" class="form-control <?php echo $errorYear?>" maxlength="4" name="Year"value="<?php echo $_GET['Year']?>" required>
                 <div class="invalid-feedback">
                     Please enter a year.
                 </div>
@@ -49,7 +64,7 @@
 
             <div class="form-group">
                 <label for="Genre">Genre</label>
-                <input type="text" placeholder="Enter genre (Rock,Pop,Prog...)" class="form-control" name="Genre" required>
+                <input type="text" placeholder="Enter genre (Rock,Pop,Prog...)" class="form-control <?php echo $errorGenre?>" name="Genre" value="<?php echo $_GET['Genre']?>" required>
                 <div class="invalid-feedback">
                     Please enter a genre.
                 </div>
@@ -57,7 +72,7 @@
 
             <div class="form-group">
                 <label for="Label">Label</label>
-                <input type="text" placeholder="Enter label (EMI, Warner, Polygram, Univers sale ...)" class="form-control" name="Label" required>
+                <input type="text" placeholder="Enter label (EMI, Warner, Polygram, Univers sale ...)" class="form-control <?php echo $errorLabel?>" name="Label" value="<?php echo $_GET['Label']?>" required>
                 <div class="invalid-feedback">
                     Please enter a label.
                 </div>
@@ -65,9 +80,9 @@
 
             <div class="form-group">
                 <label for="Price">Price</label>
-                <input type="text" placeholder="Price" class="form-control" name="Price" required>
+                <input type="text" placeholder="Price" class="form-control <?php echo $errorPrice?>"" name="Price" value="<?php echo $_GET['Price']?>" required>
                 <div class="invalid-feedback">
-                    Please enter a Price.
+                    Please enter a price => format {6,2}.
                 </div>
             </div>
 
@@ -85,10 +100,12 @@
                 </div>
                 <div class="previewImg">
                         <figcaption class="text-center">Prévisualisation image</figcaption>
-                        <img src="" class="form-control mx-auto" style="height:250px; width:auto; border:none" id="previewImg"> 
+                        <img src="<?php echo $_GET['Picture']?>" class="form-control mx-auto" style="height:250px; width:auto; border:none" id="previewImg"> 
                 </div>
             </div>
             
+            <input hidden name="pictureUnchanged" value="<?php echo $_GET['Picture']?>">
+
                 <button type="submit" class="btn btn-primary">Ajouter</button>
                 <button type="reset" class="btn btn-primary" onclick="window.location.href = 'index.php'">Retour</button>
         </form>

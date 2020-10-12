@@ -13,14 +13,14 @@
     $disc_picture= strip_tags($infos['Picture']['name']);
     $disc_label = strip_tags($infos['Label']);
     $disc_genre = strip_tags($infos['Genre']);
-    $disc_price= strip_tags($infos['Price']);
+    $disc_price= floatval(strip_tags($infos['Price']));
     $artist_id = strip_tags($infos['Artist']);
 
     //Création du tableau d'erreurs
     $errors = array();
 
 //Contrôle des saisies
-    $regexTitle="/^[A-z]{1,50}$/";
+    $regexTitle="/^[A-z ]{1,50}$/";
     $testTitle= preg_match($regexTitle,$disc_title);
     if (!$testTitle){
         $errors['Title'] = "is-invalid";
@@ -48,7 +48,7 @@
         $errors['Label'] = "is-valid";
     }   
 
-    $regexGenre="/^[A-z]{1,50}$/";
+    $regexGenre="/^[A-z ]{1,50}$/";
     $testGenre= preg_match($regexGenre,$disc_genre);
      if (!$testGenre){
         $errors['Genre'] = "is-invalid";
@@ -57,7 +57,7 @@
         $errors['Genre'] = "is-valid";
     }   
 
-    $regexPrice="/^[0-9]{1,4}(?:[.,][0-9]{2})?$/";
+    $regexPrice="/^[0-9]{1,4}(?:[.,][0-9]{1,2})?$/";
     $testPrice= preg_match($regexPrice,$disc_price);
      if (!$testPrice){
         $errors['Price'] = "is-invalid";

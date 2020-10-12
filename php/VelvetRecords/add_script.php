@@ -1,11 +1,15 @@
 <?php 
+    session_start();
 
-//Récupération de tous les éléments envoyés par le formulaire
-    $infos = array();
-    $infos += $_REQUEST;
-    $infos += $_FILES;
-    /* var_dump($infos);
-    var_dump($infos['Picture']['name']); */
+    //Verification des données soumises par le formulaire
+    require_once 'verify_form.php';
+
+    if ($errors['NbErrors'] > 0){
+        $_SESSION['errorsForm'] = $errors;
+        $_SESSION['infos']= $infos; // Renvoi des infos transmises pour réutilisation dans les champs
+        header('Location: add_form.php'); // Retour au formulaire de modification
+
+    } else {
 
 //Préparation des données pour insertion
     $disc_title = strip_tags($infos['Title']);
@@ -50,7 +54,7 @@
         $RequeteAdd->bindValue(":disc_picture", $disc_picture, PDO::PARAM_STR);
         $RequeteAdd->bindValue(":disc_label", $disc_label, PDO::PARAM_STR);
         $RequeteAdd->bindValue(":disc_genre", $disc_genre, PDO::PARAM_STR);
-        $RequeteAdd->bindValue(":disc_price", $disc_price, PDO::PARAM_INT);
+        $RequeteAdd->bindValue(":disc_price", $disc_price);
         $RequeteAdd->bindValue(":artist_id", $artist_id, PDO::PARAM_INT);
 
     //Execution
@@ -80,6 +84,7 @@
         echo '</br><p style="background-color:#339900; margin:0px;font-weight:light; color:white; font-size: 1.2rem">Création du fichier image portant le nom : '.$fileName.'.</p>';
 
 
-//Redirection vers la liste des vinyles
-    header("Location: index.php");
+    //Redirection vers la liste des vinyles
+        header("Location: index.php");
+    }
 ?>
