@@ -2,12 +2,12 @@
 
 //Gestion affichage des erreurs détectés lors de la validation côté serveur
     if(isset($_SESSION['errorsForm'])){
-        $errorTitle = $_SESSION['errorsForm']['Title'];
-        $errorYear = $_SESSION['errorsForm']['Year'];
-        $errorGenre = $_SESSION['errorsForm']['Genre'];
-        $errorLabel = $_SESSION['errorsForm']['Label'];
-        $errorPrice = $_SESSION['errorsForm']['Price'];
-        $errorArtist = $_SESSION['errorsForm']['Artist'];
+        $errorTitle = $_SESSION['errorsForm']['Title']['status'];
+        $errorYear = $_SESSION['errorsForm']['Year']['status'];
+        $errorGenre = $_SESSION['errorsForm']['Genre']['status'];
+        $errorLabel = $_SESSION['errorsForm']['Label']['status'];
+        $errorPrice = $_SESSION['errorsForm']['Price']['status'];
+        $errorArtist = $_SESSION['errorsForm']['Artist']['status'];
         unset($_SESSION['errorsForm']); // Supprime les erreurs pour éviter l'apparition de nouveau des messages si retour sur le formulaire via un autre chemin
     } else{
         $errorTitle = "";

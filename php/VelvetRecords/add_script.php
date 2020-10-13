@@ -4,40 +4,14 @@
     //Verification des données soumises par le formulaire
     require_once 'verify_form.php';
 
-    if ($errors['NbErrors'] > 0){
+    if (count($errors) > 0){
         $_SESSION['errorsForm'] = $errors;
         $_SESSION['infos']= $infos; // Renvoi des infos transmises pour réutilisation dans les champs
-        header('Location: add_form.php'); // Retour au formulaire de modification
-
+       /*  header('Location: add_form.php'); // Retour au formulaire de modification */
     } else {
 
-//Préparation des données pour insertion
-    $disc_title = strip_tags($infos['Title']);
-    $disc_year= strip_tags($infos['Year']);
-    $disc_picture= strip_tags($infos['Picture']['name']);
-    $disc_label = strip_tags($infos['Label']);
-    $disc_genre = strip_tags($infos['Genre']);
-    $disc_price= strip_tags($infos['Price']);
-    $artist_id = strip_tags($infos['Artist']);
-
-//Contrôle des saisies
-    $regexTitle="/[A-Za-z]+/";
-    $testTitle= preg_match($regexTitle,$disc_title);
-
-    $regexYear="/[0-9]{4}/";
-    $testYear= preg_match($regexYear,$disc_year);
-
-    $regexPicture="/[A-z]+/";
-    $testPicture= preg_match($regexPicture,$disc_picture);
-
-    $regexLabel="/[A-z]+/";
-    $testLabel= preg_match($regexLabel,$disc_label);
-
-    $regexGenre="/[A-z]+/";
-    $testGenre= preg_match($regexGenre,$disc_genre);
-
-    $regexPrice="/[0-9]{4}[0-9]{2}/";
-    $testPrice= preg_match($regexPrice,$disc_price);
+//Préparation des données pour insertion (après vérification sur champ au format 'string')
+    $disc_price= floatval(strip_tags($infos['Price']));
 
 //Connexion à la BDD
     require 'connexion.php';
@@ -59,7 +33,7 @@
 
     //Execution
     
-    $RequeteAdd->execute();
+    /* $RequeteAdd->execute(); */
 
   
 // Gestion du fichier image
@@ -69,7 +43,6 @@
 
     // Recherche de tous les fichiers images potentiels portant l'ID du produit cible
     $fichiersExistant = glob('img/'.$fileName);
-    var_dump($fichiersExistant);
 
    // Si un ou plusieurs fichiers portent ce même nom, le(s) supprimer, quelque soit son (leur) extension (png,jpg,pjeg,etc)
          if (sizeof($fichiersExistant) == 0 ){ // si pas de fichier trouvé, ne fait rien
@@ -83,8 +56,7 @@
         move_uploaded_file($infos['Picture']['tmp_name'],'img/'.$fileName);
         echo '</br><p style="background-color:#339900; margin:0px;font-weight:light; color:white; font-size: 1.2rem">Création du fichier image portant le nom : '.$fileName.'.</p>';
 
-
-    //Redirection vers la liste des vinyles
-        header("Location: index.php");
+        //Redirection vers la liste des vinyles
+  /*       header("Location: index.php"); */
     }
 ?>
