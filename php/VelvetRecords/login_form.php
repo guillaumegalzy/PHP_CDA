@@ -1,7 +1,42 @@
 <?php 
     require_once('header.php');
 
-/*     var_dump($_POST); */
+    if (!empty($_POST)){
+        if (!filter_var($_REQUEST['Email'], FILTER_VALIDATE_EMAIL)) {
+            $emailErr = "Invalid email format";
+        } 
+        
+        if (empty($_REQUEST['Password'])) {
+            $passwordErr = "Please type a password";
+
+        } 
+        
+        if (!isset($emailErr) && !isset($passwordErr)) {
+            $email =  strip_tags($_REQUEST['Email']);
+            $password =  strip_tags($_REQUEST['Password']);
+
+            require_once('connexion.php');
+    
+            //Récupération de tous les utilisateurs
+            $RequeteUser = $db-> prepare("SELECT email, password FROM user WHERE email = :email");
+
+            $RequeteUser->bindValue(':email',$email,PDO::PARAM_STR);
+            $RequeteUser->execute();
+            
+            $ListUsers = $RequeteUser->fetchAll(PDO::FETCH_OBJ);
+            $RequeteUser->closeCursor();
+    
+            $passwordDB = $ListUsers[0]->password;
+
+            if (password_verify($password,$passwordDB)){
+                //Considéré dorénavant comme logué
+                $_SESSION['auth'] = 'OK';
+    
+               //Redirection vers la page précédente
+                 header("Location: index.php");
+            }
+        }
+    }
 ?>
 
 <body>
@@ -9,48 +44,28 @@
         
         <h1 class="h1">Login</h1>
 
-        <form action="login_script.php" method="POST" class="needs-validation" novalidate>
+        <form action="" method="POST" novalidate>
             <div class="form-group">
                 <label for="Email">Email</label>
-                <input type="text" placeholder="Enter email adresse" class="form-control" name="Email" value="" required>
+                <input type="text" placeholder="Enter email adresse" class="form-control <?= isset($emailErr) ? 'is-invalid' : '' ?>" name="Email" value="<?= isset($_REQUEST['Email']) ? $_REQUEST['Email']  : ''?>" required>
                 <div class="invalid-feedback">
-                    Please enter an email adress.
+                <?= isset($emailErr) ? $emailErr : '' ?>
                 </div>
             </div>
 
             <div class="form-group">    
                 <label for="Password">Password</label>
-                <input type="password" placeholder="Enter your password" class="form-control" name="Password" value="" required>
+                <input type="password" placeholder="Enter your password" class="form-control  <?= isset($passwordErr) ? 'is-invalid' : '' ?>""  name="Password" value="" required>
                 <div class="invalid-feedback">
-                    Please enter a password.
+                <?= isset($passwordErr) ? $passwordErr : '' ?>
                 </div>
             </div>
             
-            <input type="text" hidden name="PreviousPage" value="<?php echo $_REQUEST['PreviousPage']?>"> <!-- Récupère l'adresse de la page ayant envoyé vers le formulaire -->
-
                 <button type="submit" class="btn btn-primary">Ajouter</button>
                 <button type="reset" class="btn btn-secondary" onclick="window.location.href = 'index.php'">Retour</button>
         </form>
     </div>
 
-    <!-- Script validation auto JS par Bootstrap -->
     <script>
-        (function() {
-        'use strict';
-            window.addEventListener('load', function() {
-
-                var forms = document.getElementsByClassName('needs-validation');
-                var validation = Array.prototype.filter.call(forms, function(form) {
-                    form.addEventListener('submit', function(event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                        
-                    }, false);
-                });
-            }, false);
-        })();
     </script>
 

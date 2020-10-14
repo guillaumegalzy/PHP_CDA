@@ -1,11 +1,10 @@
 <?php 
     session_start();
-
+    
     unset($_SESSION['auth']);
-    unset($_SESSION['login']);
-    unset($_SESSION['password']);
+    session_destroy();
 
     //Redirection vers la page précédente
-    header("Location: ".$_REQUEST['PreviousPage']);
+    header("Location: index.php");
 ?>
 

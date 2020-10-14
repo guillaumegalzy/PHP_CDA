@@ -1,16 +1,17 @@
 <?php
     //Ouverture de la session pour stockage
     session_start();
-
-  /*   var_dump($_SESSION); */
-
+    
     if(isset($_SESSION['auth'])){
-        $HideWhenLogged= "hidden";
-        $ShowWhenLogged= "";
+        if ($_SESSION['auth'] === 'OK'){
+            $HideWhenLogged= "hidden";
+            $ShowWhenLogged= "";
+        }
     } else {
         $HideWhenLogged= "";
         $ShowWhenLogged= "hidden";
     }
+
 ?>
 
 <!DOCTYPE html>
@@ -23,19 +24,16 @@
 </head>
 
 <div class="container row">
-    <form action="login_form.php" method="POST" <?php echo $HideWhenLogged?>>
-        <input type="text" hidden name="PreviousPage" value="<?php echo $_SERVER['SCRIPT_NAME']?> "> <!-- Récupère l'adresse de la page ayant envoyé vers le formulaire -->
-        <button type="submit" class="btn btn-primary ml-3"  >Log In</button>
+    <form action="login_form.php" method="GET" <?= $HideWhenLogged?>>
+        <button type="submit" class="btn btn-primary ml-3" >Log In</button>
     </form>
 
-    <form action="signin_form.php" method="POST" <?php echo $HideWhenLogged?>>
-        <input type="text" hidden name="PreviousPage" value="<?php echo $_SERVER['SCRIPT_NAME']?> "> <!-- Récupère l'adresse de la page ayant envoyé vers le formulaire -->
-        <button type="submit" class="btn btn-primary ml-3">Sign In</button>
+    <form action="signin_form.php" method="GET" <?= $HideWhenLogged?>>
+        <button type="submit" class="btn btn-primary ml-3" >Sign In</button>
     </form>
 
-    <form action="logout_script.php" method="POST" <?php echo $ShowWhenLogged?>> <!-- Supprime les données de connexions -->
-        <input type="text" hidden name="PreviousPage" value="<?php echo $_SERVER['SCRIPT_NAME']?> "> <!-- Récupère l'adresse de la page ayant envoyé vers le formulaire -->
-        <button type="submit" class="btn btn-primary">Log Out</button>
+    <form action="logout_script.php" method="GET" <?= $ShowWhenLogged?>> <!-- Supprime les données de connexions -->
+        <button type="submit" class="btn btn-primary" >Log Out</button>
     </form>
   
 </div>

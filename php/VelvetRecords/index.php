@@ -19,7 +19,7 @@
             <h1 class="h1">Liste des disques 
                 (<?php echo count($tableauDisc)?>) <!-- Récupère et affiche le nombre de disques dans la BDD -->
             </h1>
-            <form action="add_form.php" method="GET">
+            <form action="add_form.php" method="GET" <?= $ShowWhenLogged?>>
                 <button type="submit" class="btn btn-primary">Ajouter</button>
             </form>
         </div>

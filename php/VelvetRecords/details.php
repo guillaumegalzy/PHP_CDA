@@ -58,8 +58,8 @@
             <input hidden name="id" value="<?= $tableauDiscDetails['disc_id']?>">
             <input hidden name="artist_id" value="<?= $tableauDiscDetails['artist_id'][0]?>">
                 
-                <button type="submit" class="btn btn-primary">Modifier</button>
-                <button type="button" class="btn btn-danger" onclick="window.location.href = 'delete_script.php?id=<?= $_REQUEST['id'] ?>'">Supprimer</button>
+                <button type="submit" class="btn btn-primary" <?= $ShowWhenLogged?>>Modifier</button>
+                <button type="button" class="btn btn-danger" <?= $ShowWhenLogged?> onclick="window.location.href = 'delete_script.php?id=<?= $_REQUEST['id'] ?>'">Supprimer</button>
                 <button type="reset" class="btn btn-secondary" id="BtnReset" onclick="window.location.href = 'index.php'">Retour</button>
         </form>
     </div>
