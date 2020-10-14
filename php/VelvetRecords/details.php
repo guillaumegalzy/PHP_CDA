@@ -21,45 +21,45 @@
         <form action="update_form.php" method="GET" class="needs-validation">
             <div class="form-group">
                 <label for="Title">Title</label>
-                <input type="text" placeholder="Enter title" class="form-control" name="Title" value="<?php echo $tableauDiscDetails['disc_title']?>" readonly>
+                <input type="text" placeholder="Enter title" class="form-control" name="Title" value="<?= $tableauDiscDetails['disc_title']?>" readonly>
             </div>
 
             <div class="form-group">    
                 <label for="Artist">Artist</label>
-                <input type="text" class="form-control" name="Artist" value="<?php echo $tableauDiscDetails['artist_name']?>" readonly>
+                <input type="text" class="form-control" name="Artist" value="<?= $tableauDiscDetails['artist_name']?>" readonly>
             </div>
 
             <div class="form-group">    
                 <label for="Year">Year</label>
-                <input type="text" placeholder="Enter year" class="form-control" name="Year" value="<?php echo $tableauDiscDetails['disc_year']?>" readonly>
+                <input type="text" placeholder="Enter year" class="form-control" name="Year" value="<?= $tableauDiscDetails['disc_year']?>" readonly>
             </div>
 
             <div class="form-group">
                 <label for="Genre">Genre</label>
-                <input type="text" placeholder="Enter genre (Rock,Pop,Prog...)" class="form-control" name="Genre" value="<?php echo $tableauDiscDetails['disc_genre']?>" readonly>
+                <input type="text" placeholder="Enter genre (Rock,Pop,Prog...)" class="form-control" name="Genre" value="<?= $tableauDiscDetails['disc_genre']?>" readonly>
             </div>
 
             <div class="form-group">
                 <label for="Label">Label</label>
-                <input type="text" placeholder="Enter label (EMI, Warner, Polygram, Univers sale ...)" class="form-control" name="Label" value="<?php echo $tableauDiscDetails['disc_label']?>" readonly>
+                <input type="text" placeholder="Enter label (EMI, Warner, Polygram, Univers sale ...)" class="form-control" name="Label" value="<?= $tableauDiscDetails['disc_label']?>" readonly>
             </div>
 
             <div class="form-group">
                 <label for="Price">Price</label>
-                <input type="text" placeholder="Price" class="form-control" name="Price" value="<?php echo $tableauDiscDetails['disc_price']?>" readonly>
+                <input type="text" placeholder="Price" class="form-control" name="Price" value="<?= $tableauDiscDetails['disc_price']?>" readonly>
             </div>
 
             <div class="form-group text-center">
                 <label for="Picture" >Prévisualisation image</label>
-                <input hidden name="Picture" value="img\<?php echo $tableauDiscDetails['disc_picture']?>">
-                <img src="img\<?php echo $tableauDiscDetails['disc_picture']?>" class="form-control mx-auto" style="height:250px; width:auto; border:none"> 
+                <input hidden name="Picture" value="img\<?= $tableauDiscDetails['disc_picture']?>">
+                <img src="img\<?= $tableauDiscDetails['disc_picture']?>" class="form-control mx-auto" style="height:250px; width:auto; border:none"> 
             </div>
 
-            <input hidden name="id" value="<?php echo $tableauDiscDetails['disc_id']?>">
-            <input hidden name="artist_id" value="<?php echo $tableauDiscDetails['artist_id'][0]?>">
+            <input hidden name="id" value="<?= $tableauDiscDetails['disc_id']?>">
+            <input hidden name="artist_id" value="<?= $tableauDiscDetails['artist_id'][0]?>">
                 
                 <button type="submit" class="btn btn-primary">Modifier</button>
-                <button type="button" class="btn btn-danger" onclick="window.location.href = 'delete_script.php?id=<?php echo $_REQUEST['id'] ?>'">Supprimer</button>
+                <button type="button" class="btn btn-danger" onclick="window.location.href = 'delete_script.php?id=<?= $_REQUEST['id'] ?>'">Supprimer</button>
                 <button type="reset" class="btn btn-secondary" id="BtnReset" onclick="window.location.href = 'index.php'">Retour</button>
         </form>
     </div>

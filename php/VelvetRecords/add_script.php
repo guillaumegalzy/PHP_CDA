@@ -1,17 +1,4 @@
 <?php 
-    session_start();
-
-    //Verification des données soumises par le formulaire
-    require_once 'verify_form.php';
-
-    if (count($errors) > 0){
-        $_SESSION['errorsForm'] = $errors;
-        $_SESSION['infos']= $infos; // Renvoi des infos transmises pour réutilisation dans les champs
-       /*  header('Location: add_form.php'); // Retour au formulaire de modification */
-    } else {
-
-//Préparation des données pour insertion (après vérification sur champ au format 'string')
-    $disc_price= floatval(strip_tags($infos['Price']));
 
 //Connexion à la BDD
     require 'connexion.php';
@@ -31,18 +18,15 @@
         $RequeteAdd->bindValue(":disc_price", $disc_price);
         $RequeteAdd->bindValue(":artist_id", $artist_id, PDO::PARAM_INT);
 
-    //Execution
-    
-    /* $RequeteAdd->execute(); */
+    //Execution de la requête
+    $RequeteAdd->execute();
 
-  
 // Gestion du fichier image
     //Récupération du nom du fichier
     $fileName = $disc_picture;
-    $fileName = 'Drama.jpeg';
 
     // Recherche de tous les fichiers images potentiels portant l'ID du produit cible
-    $fichiersExistant = glob('img/'.$fileName);
+    $fichiersExistant = glob($fileName);
 
    // Si un ou plusieurs fichiers portent ce même nom, le(s) supprimer, quelque soit son (leur) extension (png,jpg,pjeg,etc)
          if (sizeof($fichiersExistant) == 0 ){ // si pas de fichier trouvé, ne fait rien
@@ -53,10 +37,8 @@
          }
 
    // Ajout du nouveau fichier image portant l'ID du produit cible et la bonne extension de fichier
-        move_uploaded_file($infos['Picture']['tmp_name'],'img/'.$fileName);
-        echo '</br><p style="background-color:#339900; margin:0px;font-weight:light; color:white; font-size: 1.2rem">Création du fichier image portant le nom : '.$fileName.'.</p>';
+        move_uploaded_file($_FILES['Picture']['tmp_name'],'img/'.$fileName);
 
-        //Redirection vers la liste des vinyles
-  /*       header("Location: index.php"); */
-    }
+    //Redirection vers la liste des vinyles
+        header("Location: index.php");
 ?>
