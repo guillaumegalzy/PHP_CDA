@@ -1,6 +1,6 @@
 <?php
 
-    class DiscDAO extends DAO
+    class ArtistDAO extends DAO
     {
         function insert($dis) {
             // générer une requête insert à partir de l'objet $dis (représentant un objet de la classe Disc)

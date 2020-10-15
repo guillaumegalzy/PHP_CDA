@@ -2,6 +2,7 @@
 
 //Ajout des classes nécessaires au bon fonctionnement du script
     require_once 'Disc.php';
+    require_once 'DAO.php';
     require_once 'DiscDAO.php';
 
 //Création d'un nouveau DAO
