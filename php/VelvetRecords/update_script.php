@@ -1,25 +1,31 @@
 <?php 
     
-    //Connexion à la BDD
-        require_once 'connexion.php';
+   //Ajout des classes nécessaires au bon fonctionnement du script
+   require_once 'Disc.php';
+   require_once 'DiscDAO.php';
+
+    //Création d'un nouveau DAO
+    $dao = new DiscDAO() ;
+
+    //Création d'une nouvelle instance de disque
+   $disque = new Disc() ;
     
     //Ajout du nouveau vynile 
         $disc_id= $_REQUEST['id'];
 
-        //Préparation
-            $sqlUpdateWithoutPicture = "UPDATE `disc` SET disc_title = :disc_title, disc_year = :disc_year, disc_label = :disc_label, disc_genre = :disc_genre, disc_price = :disc_price, artist_id = :artist_id WHERE disc_id = $disc_id";  
-            
-            $RequeteUpdate = $db->prepare($sqlUpdateWithoutPicture);
-    
-            $RequeteUpdate->bindValue(":disc_title", $disc_title, PDO::PARAM_STR);
-            $RequeteUpdate->bindValue(":disc_year", $disc_year, PDO::PARAM_INT);
-            $RequeteUpdate->bindValue(":disc_label", $disc_label, PDO::PARAM_STR);
-            $RequeteUpdate->bindValue(":disc_genre", $disc_genre, PDO::PARAM_STR);
-            $RequeteUpdate->bindValue(":disc_price", $disc_price);
-            $RequeteUpdate->bindValue(":artist_id", $artist_id, PDO::PARAM_INT);
-        
-        //Execution
-        $RequeteUpdate ->execute();
+    //Définition des valeurs pour chacun des attributs
+        $disque->setTitle($disc_title);
+        $disque->setYear($disc_year);
+        $disque->setPicture($disc_picture);
+        $disque->setLabel($disc_label);
+        $disque->setGenre($disc_genre);
+        $disque->setPrice($disc_price);
+        $disque->setArtistId($artist_id);
+        $disque->setDiscId($disc_id);
+
+    //MàJ du nouveau vynile 
+        $dao->update($disque);
+
         
     //Gestion spécififique de l'image
         if($disc_picture != ""){

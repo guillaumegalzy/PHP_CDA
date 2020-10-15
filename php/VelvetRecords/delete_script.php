@@ -1,19 +1,21 @@
 <?php 
 
-//Récupération de tous les éléments envoyés par le formulaire
+//Ajout des classes nécessaires au bon fonctionnement du script
+    require_once 'Disc.php';
+    require_once 'DiscDAO.php';
+
+//Création d'un nouveau DAO
+    $dao = new DiscDAO() ;
+
+//Création d'une nouvelle instance de disque
+    $disque = new Disc() ;
+
+//Récupération de l'ID
     $id = $_GET['id'];
 
-//Connexion à la BDD
-    require_once 'connexion.php';
+    $disque->setDiscId($id);
 
-//Ajout du nouveau vynile 
-    //Préparation
-    $sqlDelete = "DELETE FROM disc where disc_id = $id";
-
-    $RequeteDelete = $db->prepare($sqlDelete);
-
-    //Execution de la requête
-    $RequeteDelete ->execute();
+    $dao->delete($disque);
 
 //Redirection vers la liste des vinyles
 

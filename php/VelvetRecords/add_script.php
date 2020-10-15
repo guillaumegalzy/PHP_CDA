@@ -1,25 +1,26 @@
 <?php 
 
-//Connexion à la BDD
-    require 'connexion.php';
+//Ajout des classes nécessaires au bon fonctionnement du script
+    require_once 'Disc.php';
+    require_once 'DiscDAO.php';
+
+//Création d'un nouveau DAO
+    $dao = new DiscDAO() ;
+
+//Création d'une nouvelle instance de disque
+    $disque = new Disc() ;
+
+    //Définition des valeurs pour chacun des attributs
+    $disque->setTitle($disc_title);
+    $disque->setYear($disc_year);
+    $disque->setPicture($disc_picture);
+    $disque->setLabel($disc_label);
+    $disque->setGenre($disc_genre);
+    $disque->setPrice($disc_price);
+    $disque->setArtistId($artist_id);
 
 //Ajout du nouveau vynile 
-    //Préparation
-    $sqlAdd = "INSERT INTO `disc` (disc_title, disc_year, disc_picture, disc_label, disc_genre, disc_price, artist_id) VALUES (:disc_title, :disc_year, :disc_picture, :disc_label, :disc_genre, :disc_price, :artist_id)";
-
-    $RequeteAdd = $db->prepare($sqlAdd);
-
-    //Liaison des données SQL et PHP
-        $RequeteAdd->bindValue(":disc_title", $disc_title, PDO::PARAM_STR);
-        $RequeteAdd->bindValue(":disc_year", $disc_year, PDO::PARAM_INT);
-        $RequeteAdd->bindValue(":disc_picture", $disc_picture, PDO::PARAM_STR);
-        $RequeteAdd->bindValue(":disc_label", $disc_label, PDO::PARAM_STR);
-        $RequeteAdd->bindValue(":disc_genre", $disc_genre, PDO::PARAM_STR);
-        $RequeteAdd->bindValue(":disc_price", $disc_price);
-        $RequeteAdd->bindValue(":artist_id", $artist_id, PDO::PARAM_INT);
-
-    //Execution de la requête
-    $RequeteAdd->execute();
+    $dao->insert($disque);
 
 // Gestion du fichier image
     //Récupération du nom du fichier
